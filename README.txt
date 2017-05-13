@@ -1,7 +1,7 @@
 ssobjects Version 1.01.01 September 25, 2001
 Copyright (c) 2006, Lee Patterson
 
-Web   : http://ssobjects.sourceforge.net
+Web   : https://github.com/abathur8bit/ssobjects
 Email : workerant@users.sourceforge.net
 
 ***********************************************************************************
