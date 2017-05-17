@@ -245,6 +245,7 @@ class TelnetServer : public ThreadHandler
     long            getSleepTime();                         //how many usecs to sleep according to idle frequency
     void            addMsg(PacketMessage* pmsg) { m_que.add(pmsg); }
     void            queClosedMessage(TelnetServerSocket* psocketRemoving);
+    void            calcSleepTime(struct timeval* tv,const unsigned32 msecSleepTime,const StopWatch& timer);
 
   private:    //unused overrides
     TelnetServer(const TelnetServer& server);

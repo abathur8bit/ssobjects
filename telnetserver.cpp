@@ -268,6 +268,7 @@ TelnetServer::ThreadHandlerProc(void)
   while(running())
   {
     int iMaxFD = getMaxFD();
+    calcSleepTime(&tv,m_nIdleFrequency,timer);
     iReady = select(iMaxFD+1,&m_rset,NULL/*&m_wset*/,NULL,&tv);     //see porting note above for select behaviour
     if(running())
     {
@@ -281,14 +282,33 @@ TelnetServer::ThreadHandlerProc(void)
 
       if(timer.milliseconds() >= (m_nIdleFrequency-MIN_FREQ) && running())     //20ms error range as a timeout isn't percise
       {
+        timer.start();
         idle();
         //tv.tv_sec = 0;
         //tv.tv_usec = getSleepTime();
-        timer.start();
       }
     }
   }
   return 0;
+}
+
+void
+TelnetServer::calcSleepTime(struct timeval* tv,const unsigned32 msecSleepTime,const StopWatch& timer)
+{
+  if(timer.milliseconds() < msecSleepTime)
+  {
+      //calculate how much more time we need to sleep
+      long usecTimer = (msecSleepTime - timer.milliseconds())*1000;
+      tv->tv_sec = usecTimer/1000000;
+      tv->tv_usec = usecTimer-tv->tv_sec*1000000;
+  }
+  else
+  {
+      //reset sleep to full sleep time
+      tv->tv_sec  = msecSleepTime/1000;
+      tv->tv_usec = (msecSleepTime - tv->tv_sec*1000)*1000;
+  }
+//  LOG("sec=%d usec=%d msec=%d",tv->tv_sec,tv->tv_usec,tv->tv_usec/1000);
 }
 
 long 
