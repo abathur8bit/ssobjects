@@ -161,9 +161,8 @@ bool SocketInstance::accept(SocketInstance* pConnect, LPSOCKADDR psa)
 
 void SocketInstance::close()
 {
-  //LBP (4/29/99): made so throws an exception instead of asserting when socket is invalid
   if(m_hSocket==0)
-    throwSocketInstanceException("Close - Invalid Socket");
+       return;          //calling close on a closed socket should do nothing harmful
     
   //assert(m_hSocket != NULL);
   int er;
