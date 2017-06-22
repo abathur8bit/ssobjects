@@ -230,6 +230,7 @@ TelnetServer::getMaxFD()
     FD_SET(m_sListen,&m_rset);      //select on listening socket
   }
 
+  //TODO this will sometime segfault, likely not clearing the clients properly
   for(s = m_listClients.getHead(); s; s = m_listClients.getNext())
   {
     FD_SET(*s,&m_rset);          //select for readability
@@ -337,7 +338,7 @@ TelnetServer::processMessages()
   while(m)
   {
     processSingleMsg(m);
-    p = m->packet();
+//    p = m->packet();          //TODO would it be better to delete here rather then having to do it in the implemented processSingleMsg?
 //    delete p;
     delete m;                       //we are finished with the message
     m = m_que.get();

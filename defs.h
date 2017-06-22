@@ -24,16 +24,6 @@
 //  byte byNumber
 //  bool bNumber;
 
-#ifndef _WIN32
-#    ifndef min
-# define min(x,y) (((x)<(y))?(x):(y))
-#    endif
-
-#    ifndef max
-# define max(x,y) (((x)>(y))?(x):(y))
-#    endif
-#endif
-
 typedef unsigned char byte;     //8 bits
 typedef unsigned short word;    //16 bits
 typedef short sword;            //16 bits
