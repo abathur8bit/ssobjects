@@ -172,10 +172,10 @@ void SocketInstance::close()
 #   else
   ::close(m_hSocket);
 #   endif
-  if(er == SOCKET_ERROR) {
-    // should be OK to close if closed already
-    throwSocketInstanceException("Close");
-  }
+//  if(er == SOCKET_ERROR) {
+//    // should be OK to close if closed already
+//    throwSocketInstanceException("Close");
+//  }
   m_hSocket = 0;
 }
 
