@@ -13,7 +13,6 @@
 #include "threadutils.h"
 #include "simpleserver.h"
 #include "linkedlist.h"
-#include "simpletime.h"
 #include "SimpleDate.h"
 
 #ifdef _WIN32
