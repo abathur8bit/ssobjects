@@ -1,8 +1,8 @@
 #ifndef WEBSOCKETINSTANCE_H
 #define WEBSOCKETINSTANCE_H
 
-#include <ssobjects/socketinstance.h>
-#include <ssobjects/telnetserversocket.h>
+#include "socketinstance.h"
+#include "telnetserversocket.h"
 
 //TODO implement encrypting from server
 //TODO implement > 125 (16 bit) payloads

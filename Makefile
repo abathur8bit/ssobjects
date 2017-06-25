@@ -37,6 +37,7 @@ SRCS =  \
 	serversocket.cpp \
 	simplemanager.cpp \
 	simpleserver.cpp \
+	websocketinstance.cpp \
 	socketinstance.cpp \
 	stopwatch.cpp \
 	threadutils.cpp \
