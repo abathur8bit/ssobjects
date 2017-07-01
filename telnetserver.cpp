@@ -333,13 +333,10 @@ void
 TelnetServer::processMessages()
 {
   PacketMessage* m;
-  PacketBuffer* p;
   m = m_que.get();
   while(m)
   {
     processSingleMsg(m);
-//    p = m->packet();          //TODO would it be better to delete here rather then having to do it in the implemented processSingleMsg?
-//    delete p;
     delete m;                       //we are finished with the message
     m = m_que.get();
   }
@@ -527,7 +524,13 @@ TelnetServer::queClosedMessage(TelnetServerSocket* s)
   m_que.add(pmsg);
 }
 
-
-//--------------------
-
-
+/**
+ * \brief TelnetServer::setIdleFrequency sets how much time in milliseconds should
+ *        pass before idle() is called.
+ * \param ms How much time in milliseconds should pass before idle() is called.
+ */
+void
+TelnetServer::setIdleFrequency(unsigned32 ms)
+{
+    m_nIdleFrequency = ms;
+}

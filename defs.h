@@ -25,12 +25,12 @@
 //  bool bNumber;
 
 #ifndef _WIN32
-#    ifndef min
-# define min(x,y) (((x)<(y))?(x):(y))
+#    ifndef minimum
+# define minimum(x,y) (((x)<(y))?(x):(y))
 #    endif
 
-#    ifndef max
-# define max(x,y) (((x)>(y))?(x):(y))
+#    ifndef maximum
+# define maximum(x,y) (((x)>(y))?(x):(y))
 #    endif
 #endif
 

@@ -369,7 +369,7 @@ unsigned8* PacketBuffer::resizeBuffer(unsigned32 nNewSize)
   assert(nNewSize);
 
   unsigned8* pNewMem = new unsigned8[nNewSize];
-  int iBytes = min(nNewSize,getBufferSizeMax());
+  int iBytes = minimum(nNewSize,getBufferSizeMax());
   if(!pNewMem) throwPacketBufferException("unable to resize memory");
 
 #ifdef DEBUG
@@ -817,7 +817,7 @@ void NetFile::transmit(BufferedSocket* psocket)
   unsigned8* ptr = m_pFileData;
   while(nSize>0)
   {
-    nToSend = min(nSize,nMaxSize);
+    nToSend = minimum(nSize,nMaxSize);
     packetData << nToSend;
     packetData.append(ptr,nToSend);
     psocket->sendPacket(packetData);

@@ -84,6 +84,8 @@ class TelnetServerSocket : public SocketInstance
     int             socketTimeout() const {return m_iTimeout;}              ///< Returns the number of seconds a send/receive operation will wait before throwing.
     char*           getInBuffer() const {return m_pInBuff;}
     char*           getOutBuffer() const {return m_pOutBuff;}
+    bool            isDumpingDataIn() const {return m_dumpDataIn;}          ///< Returns if read operations will show all read data as a hex dump.
+    void            setDumpingDataIn(const bool d) {m_dumpDataIn = d;}      ///< Set if read operations should show data it reads.
     
   protected:
     void            rotateBuffer(char* pbuffer,unsigned32 nBuffSize,unsigned32 nBytesRotatingOut);
@@ -101,6 +103,7 @@ class TelnetServerSocket : public SocketInstance
     unsigned32      m_nBytesIn;     //#bytes in the incoming buffer
     unsigned32      m_nBytesOut;    //#bytes in the outgoing buffer
     unsigned32      m_nBufferSizeMax;       //how big the in/out buffer is
+    bool            m_dumpDataIn;   ///< Show the number of bytes read, and a hex dump of the data read.
 
   protected:
     //unused overloads

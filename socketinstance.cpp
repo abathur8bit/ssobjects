@@ -549,7 +549,7 @@ int TelnetSocket::readResponse(char* pch, const int nSize, const int nSecs)
     m_nReadBuf = 0;
   }
   do { // now pass the rest of the data directly to the caller
-    nBytesToRead = min(nSizeRecv, nSize - nBytesRead);
+    nBytesToRead = minimum(nSizeRecv, nSize - nBytesRead);
     nBytesThisTime = recv(pch, nBytesToRead, nSecs);
     if(nBytesThisTime <= 0) break; // sender closed the socket
     pch += nBytesThisTime;
@@ -646,7 +646,7 @@ int HttpBlockingSocket::readHttpResponse(char* pch, const int nSize, const int n
     m_nReadBuf = 0;
   }
   do { // now pass the rest of the data directly to the caller
-    nBytesToRead = min(nSizeRecv, nSize - nBytesRead);
+    nBytesToRead = minimum(nSizeRecv, nSize - nBytesRead);
     nBytesThisTime = recv(pch, nBytesToRead, nSecs);
     if(nBytesThisTime <= 0) break; // sender closed the socket
     pch += nBytesThisTime;

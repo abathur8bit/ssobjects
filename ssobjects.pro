@@ -37,7 +37,9 @@ SOURCES += \
     telnetserver.cpp \
     telnetserversocket.cpp \
     threadutils.cpp \
-    tsleep.cpp
+    tsleep.cpp \
+    websocketinstance.cpp \
+    websocketserver.cpp
 
 HEADERS += \
     asyncclientconnector.h \
@@ -77,8 +79,14 @@ HEADERS += \
     telnetserversocket.h \
     threadutils.h \
     timeval.h \
-    tsleep.h
+    tsleep.h \
+    websocketinstance.h \
+    websocketserver.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+DISTFILES += \
+    Makefile \
+    ssobjects-ddoc.xml

@@ -219,7 +219,6 @@ class TelnetServer : public ThreadHandler
 
     /// Override to have a timer in your server.
     virtual void    idle(unsigned32 nTimer=0) {UNUSED_ALWAYS(nTimer);}
-      
 
   public:     //server controls
     virtual void    startServer();                                              ///< Starts up the server, makes ready for connections
@@ -228,6 +227,7 @@ class TelnetServer : public ThreadHandler
     virtual void    sendString(TelnetServerSocket* psocket,const char* pszString);  ///< Sends a packet over a socket.
     virtual void    send2All(const char* pszString);                             ///< Sends a packet to all client sockets connected to the server.
     virtual void    removeSocket(TelnetServerSocket* psocket);                   ///< Closes and removes a socket from the server.
+    void            setIdleFrequency(unsigned32 ms);                                 ///< Change the idle timeout value.
 
   public:
     static bool     canBind(SockAddr& saBind);                                  ///< Checks if we are able to bind. good for when you are about to start the server
@@ -241,6 +241,7 @@ class TelnetServer : public ThreadHandler
     virtual bool    processSockets(int iReady);
     void            processSelectError();
     virtual void    acceptConnection();
+
     int             getMaxFD();                             //return highest connected sock fd
     long            getSleepTime();                         //how many usecs to sleep according to idle frequency
     void            addMsg(PacketMessage* pmsg) { m_que.add(pmsg); }

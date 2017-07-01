@@ -31,7 +31,8 @@ TelnetServerSocket::TelnetServerSocket(
     m_pInPtr(NULL),
     m_nBytesIn(0),
     m_nBytesOut(0),
-    m_nBufferSizeMax(nBufferSize)
+    m_nBufferSizeMax(nBufferSize),
+    m_dumpDataIn(false)
 {
   m_pInBuff = new char[nBufferSize];
   m_pOutBuff = new char[nBufferSize];
@@ -58,7 +59,8 @@ TelnetServerSocket::TelnetServerSocket(const unsigned32 nBufferSize,const int iT
     m_pInPtr(NULL),
     m_nBytesIn(0),
     m_nBytesOut(0),
-    m_nBufferSizeMax(nBufferSize)
+    m_nBufferSizeMax(nBufferSize),
+    m_dumpDataIn(false)
 {
   m_pInBuff = new char[nBufferSize];
   m_pOutBuff = new char[nBufferSize];
@@ -147,8 +149,11 @@ TelnetServerSocket::readData()
     
   if(iBytesRead > 0)
   {
-    DLOG("Read %d bytes",iBytesRead);
-    DUMP(m_pInPtr,iBytesRead);
+    if(m_dumpDataIn)
+    {
+      LOG("Read %d bytes",iBytesRead);
+      logs::dump(m_pInPtr,iBytesRead);
+    }
     m_pInPtr   += iBytesRead;
     m_nBytesIn += iBytesRead;
   }
