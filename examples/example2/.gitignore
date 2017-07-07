@@ -1,0 +1,7 @@
+*.o
+*.dep
+*_dbg
+
+/pingserver
+/pingclient
+/TAGS
