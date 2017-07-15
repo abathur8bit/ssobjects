@@ -188,7 +188,7 @@ void SocketInstance::connect(LPCSOCKADDR psa)
   //assert(m_hSocket != NULL);
   // should timeout by itself
   if(::connect(m_hSocket, psa, sizeof(SOCKADDR)) == SOCKET_ERROR) {
-    throwSocketInstanceException("Connect");
+    throwSocketInstanceException("Unable to connect");
   }
 }
 
