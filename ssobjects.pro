@@ -34,6 +34,7 @@ SOURCES += \
     simpleserver.cpp \
     socketinstance.cpp \
     stopwatch.cpp \
+    telnetconnector.cpp \
     telnetserver.cpp \
     telnetserversocket.cpp \
     threadutils.cpp \
@@ -75,6 +76,7 @@ HEADERS += \
     stdafx.h \
     stopwatch.h \
     str.h \
+    telnetconnector.h \
     telnetserver.h \
     telnetserversocket.h \
     threadutils.h \

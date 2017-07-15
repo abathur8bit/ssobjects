@@ -42,6 +42,7 @@ SRCS =  \
 	stopwatch.cpp \
 	threadutils.cpp \
 	tsleep.cpp \
+    telnetconnector.cpp \
     telnetserver.cpp \
     telnetserversocket.cpp \
 #	simpletime.cpp \
@@ -57,8 +58,8 @@ INSTALL_DIRECTORY = /usr/local
 WARNINGS = -W -Wall -Woverloaded-virtual -Weffc++ 
 #WARNINGS = -w
 CC = g++
-CCFLAGS_DBG := $(INCLUDES) $(WARNINGS) -g -fPIC  -D_REENTRANT -DDEBUG  -DUSE_NCURSES 
-CCFLAGS     := $(INCLUDES) $(WARNINGS) -fPIC -O2 -D_REENTRANT -DNDEBUG -DUSE_NCURSES 
+CCFLAGS_DBG := $(INCLUDES) $(WARNINGS) -g -fPIC  -D_REENTRANT -DDEBUG  -DUSE_NCURSES -std=c++11
+CCFLAGS     := $(INCLUDES) $(WARNINGS) -fPIC -O2 -D_REENTRANT -DNDEBUG -DUSE_NCURSES -std=c++11
 LINK_FLAGS = $(LINK_INCLUDES)
 
 none    : debug 
