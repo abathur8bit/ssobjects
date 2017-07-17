@@ -68,8 +68,10 @@ void WebSocketInstance::addPacketBuffer(const char* pszString)
 
         unsigned16 header = 0x8100;                             //FIN set and Opcode = 0x1 in high byte, length 0 till we know how big it is
         unsigned8* p = (unsigned8*)m_pOutPtr;
+        unsigned32 nSize = sizeof(header)+len;
         if(len<=125)
         {
+//            DLOG("sending with 2 byte header len is %d strlen is %d",len,strlen(pszString));
             header += len;
             *((unsigned16*)p) = htons(header);                      //store the header in network order
             p += sizeof(header);                                    //point past the header
@@ -77,17 +79,18 @@ void WebSocketInstance::addPacketBuffer(const char* pszString)
         }
         else
         {
+//            DLOG("sending with 4 byte header len is %d strlen is %d",len,strlen(pszString));
             header += 126;
             *((unsigned16*)p) = htons(header);                      //store the header in network order
             p += sizeof(header);                                    //point past the header
             *((unsigned16*)p) = htons(len);                         //put length in next 2 bytes
             p += sizeof(len);                                       //past length
             memcpy(p,pszString,len);                                //store the string without encoding it
+            nSize+=2;                                               //we need to add the 2 bytes for header size
         }
 
 
         //adjust buffer position
-        const unsigned32 nSize = sizeof(header)+len;
         m_pOutPtr   += nSize;
         m_nBytesOut += nSize;
     }

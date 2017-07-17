@@ -129,7 +129,10 @@ TelnetServerSocket::sendBuffer()
       m_nBytesOut -= iBytesSent;
       m_pOutPtr -= iBytesSent;
     }
-//    DLOG("sendbufffer: %d sent, %d bytes remain unsent for socket %d",iBytesSent,getOutBufferSize(),m_hSocket);
+    if(m_dumpData)
+    {
+        DLOG("sendbufffer: %d sent, %d bytes remain unsent for socket %d",iBytesSent,getOutBufferSize(),m_hSocket);
+    }
   }
 }
 
