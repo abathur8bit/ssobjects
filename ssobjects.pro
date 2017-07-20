@@ -40,7 +40,9 @@ SOURCES += \
     threadutils.cpp \
     tsleep.cpp \
     websocketinstance.cpp \
-    websocketserver.cpp
+    websocketserver.cpp \
+    properties.cpp \
+    stringtokenizer.cpp
 
 HEADERS += \
     asyncclientconnector.h \
@@ -83,7 +85,10 @@ HEADERS += \
     timeval.h \
     tsleep.h \
     websocketinstance.h \
-    websocketserver.h
+    websocketserver.h \
+    properties.h \
+    testproperties.h \
+    stringtokenizer.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
@@ -91,4 +96,6 @@ unix {
 
 DISTFILES += \
     Makefile \
-    ssobjects-ddoc.xml
+    ssobjects-ddoc.xml \
+    test.properties \
+    tests.sh

@@ -238,7 +238,7 @@ TelnetServerSocket::extractPacket()
 **/
 int TelnetServerSocket::println(const char* fmt,...)
 {
-  char buffer[1024];
+  char buffer[PRINTF_BUFFER_SIZE];
   va_list marker;
 
   va_start(marker,fmt);
@@ -263,7 +263,7 @@ int TelnetServerSocket::println(const char* fmt,...)
 **/
 int TelnetServerSocket::print(const char* fmt,...)
 {
-  char buffer[1024];
+  char buffer[PRINTF_BUFFER_SIZE];
   va_list marker;
 
   va_start(marker,fmt);

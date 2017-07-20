@@ -1,0 +1,1 @@
+~/workspace/cxxtest-4.4/bin/cxxtestgen --error-printer -o runner.cpp testproperties.h && g++ -w -std=c++11 -o runner -I/Users/lee/workspace/cxxtest-4.4 -Isrc -I/usr/local/include -L/usr/local/lib -lssobjects_dbg -DDEBUG properties.cpp stringtokenizer.cpp runner.cpp && ./runner $*
