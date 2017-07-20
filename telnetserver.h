@@ -240,7 +240,7 @@ class TelnetServer : public ThreadHandler
     void            processMessages();
     virtual bool    processSockets(int iReady);
     void            processSelectError();
-    virtual void    acceptConnection();
+    virtual void    acceptConnection();                     ///< Socket is created with a default of 8K buffer
 
     int             getMaxFD();                             //return highest connected sock fd
     long            getSleepTime();                         //how many usecs to sleep according to idle frequency
