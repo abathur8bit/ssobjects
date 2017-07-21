@@ -33,10 +33,12 @@ SRCS =  \
 	mclthread.cpp \
 	packetbuffer.cpp \
 	packetmessageque.cpp \
+	properties.cpp \
 	serverhandler.cpp \
 	serversocket.cpp \
 	simplemanager.cpp \
 	simpleserver.cpp \
+	stringtokenizer.cpp \
 	websocketinstance.cpp \
 	socketinstance.cpp \
 	stopwatch.cpp \
