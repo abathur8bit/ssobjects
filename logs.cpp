@@ -125,9 +125,9 @@ void logs::log(const char* fmt,...)
   //CMclAutoLock lock(m_cs);
   if(m_nFlags)
   {
-    char buffer[1024];
+    char buffer[PRINTF_BUFFER];
     char timebuf[23]; //room only for "09/00/00 21:00\0"
-    char filename[_MAX_PATH];
+    char filename[MAX_PATH];
     va_list marker;
     time_t mytime;
     mytime = time(NULL);
@@ -167,17 +167,17 @@ void logs::logln(const char* fmt,...)
   //CMclAutoLock lock(m_cs);
   if(m_nFlags)
   {
-    char buffer[1024];
+    char buffer[PRINTF_BUFFER];
     char timebuf[23]; //room only for "09/00/00 21:00\0"
-    char filename[_MAX_PATH];
-    va_list marker;
+    char filename[MAX_PATH];
+    va_list ap;
     time_t mytime;
     mytime = time(NULL);
     struct tm *today;
     today = localtime(&mytime);
 
-    va_start(marker,fmt);
-    vsnprintf(buffer,sizeof buffer,fmt,marker);
+    va_start(ap,fmt);
+    vsnprintf(buffer,sizeof buffer,fmt,ap);
 #ifdef _WIN32
     NULL_TERMINATE(buffer,sizeof buffer);
 #endif
@@ -201,6 +201,7 @@ void logs::logln(const char* fmt,...)
         }
       }
     }
+    va_end(ap);
   }
 }
 

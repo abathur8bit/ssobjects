@@ -227,7 +227,9 @@ TelnetServerSocket::extractPacket()
 
 
 /**
-   Writes a line of text to the socket, and addes CR & LF.
+   Writes a line of text to the socket, and addes CR & LF. Note we will
+   truncate the string to fit PRINTF_BUFFER-2 bytes. -2 leaves 2 bytes
+   for the \r\n to be appended.
 
    \param fmt printf formatting string.
    \param ... printf parameters.
@@ -238,17 +240,16 @@ TelnetServerSocket::extractPacket()
 **/
 int TelnetServerSocket::println(const char* fmt,...)
 {
-  char buffer[PRINTF_BUFFER_SIZE];
-  va_list marker;
+  char buffer[PRINTF_BUFFER];
+  va_list ap;
 
-  va_start(marker,fmt);
-  vsnprintf(buffer,sizeof buffer,fmt,marker);
-  NULL_TERMINATE(buffer,sizeof buffer);
+  va_start(ap,fmt);
+  vsnprintf(buffer,sizeof(buffer)-2,fmt,ap);    // PRINTF_BUFFER-2 to allow room for \r\n at the end
+  NULL_TERMINATE(buffer,sizeof(buffer)-2);
+  va_end(ap);
 
-  int iBytes;
   strcat(buffer,"\r\n");
-  iBytes = sendString(buffer);
-  return iBytes;
+  return sendString(buffer);
 }
 
 /**
@@ -263,12 +264,13 @@ int TelnetServerSocket::println(const char* fmt,...)
 **/
 int TelnetServerSocket::print(const char* fmt,...)
 {
-  char buffer[PRINTF_BUFFER_SIZE];
-  va_list marker;
+  char buffer[PRINTF_BUFFER];
+  va_list ap;
 
-  va_start(marker,fmt);
-  vsnprintf(buffer,sizeof buffer,fmt,marker);
+  va_start(ap,fmt);
+  vsnprintf(buffer,sizeof buffer,fmt,ap);
   NULL_TERMINATE(buffer,sizeof buffer);
+  va_end(ap);
 
   return sendString(buffer);
 }

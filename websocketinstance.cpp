@@ -207,10 +207,10 @@ void WebSocketInstance::decodeXOR(unsigned8* pdest,const unsigned8* psource,cons
     }
 }
 
-void WebSocketInstance::setMask(unsigned8* mask)
-{
-    m_mask[0] = *(mask);    //we could use a for loop, or for speed, just unwrap it
-    m_mask[1] = *(mask+1);
-    m_mask[2] = *(mask+2);
-    m_mask[3] = *(mask+3);
-}
+//void WebSocketInstance::setMask(unsigned8* mask)
+//{
+//    m_mask[0] = *(mask);    //we could use a for loop, or for speed, just unwrap it
+//    m_mask[1] = *(mask+1);
+//    m_mask[2] = *(mask+2);
+//    m_mask[3] = *(mask+3);
+//}

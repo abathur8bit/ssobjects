@@ -411,7 +411,7 @@ TelnetServer::acceptConnection()
 
   //TODO: put in a try/catch block
   m_sListen.accept(sClient,saClient);
-  pServSocket = new TelnetServerSocket(sClient,saClient,8000,120);
+  pServSocket = new TelnetServerSocket(sClient,saClient,TELNET_BUFFER_SIZE,120);
   m_listClients.addTail(pServSocket);
 
   PacketBuffer* pktNew = new PacketBuffer(PacketBuffer::pcNewConnection);

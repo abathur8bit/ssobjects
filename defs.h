@@ -9,11 +9,13 @@
         purpose  :  common defines 
 *********************************************************************/
 
-#ifndef CCDEFS_H
-#define CCDEFS_H
+#ifndef DEFS_H
+#define DEFS_H
 
 #include <sys/types.h>
 #include "msdefs.h"
+
+#define PRINTF_BUFFER       2048        //used by loggers, and routines that print to a buffer
 
 //types to keep things simple
 
@@ -106,4 +108,4 @@ typedef signed    long  signed32;     //iNumber
 //#endif
 
 
-#endif //CCDEFS_H
+#endif //DEFS_H

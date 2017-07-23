@@ -47,7 +47,6 @@ class TelnetServerSocketException : public GeneralException
 #define CR 13 ///< Carriage return (0x0D) \r
 #define LF 10 ///< Line feed       (0x0A) \n
 #define NUL 0 ///< Telnet no operation
-#define PRINTF_BUFFER_SIZE   5120    //5K
 
 /**
     \brief

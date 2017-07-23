@@ -29,6 +29,8 @@
 
 using namespace ssobjects;
 
+#define TELNET_BUFFER_SIZE  8192    //8K
+
 /**
    \brief Server object used to create a telnet server.
 
