@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "generalexception.h"
 #include "properties.h"
 #include "logs.h"
@@ -21,11 +23,13 @@ Properties::~Properties()
 
 void Properties::load(const char *filepath)
 {
-    strcpy(m_filepath,filepath);
+    strncpy(m_filepath,filepath,sizeof(m_filepath));
+    NULL_TERMINATE(m_filepath,sizeof(m_filepath));
+
     FILE* fp = fopen(filepath,"r");
     if(!fp)
     {
-        char msg[1024];
+        char msg[FILENAME_MAX+80];  //room for filename and some error text
         snprintf(msg,sizeof(msg),"File %s not found",filepath);
         NULL_TERMINATE(msg,sizeof(msg));
         throwGeneralException(msg);
@@ -100,7 +104,7 @@ int Properties::indexOf(const char *key) const
     return -1;    //no key found
 }
 
-const char* Properties::property(const char *key)
+const char* Properties::property(const char *key,const char* defaultValue)
 {
     if(m_keys && m_values)
     {
@@ -110,7 +114,7 @@ const char* Properties::property(const char *key)
                 return m_values[i];
         }
     }
-    return NULL;    //no key found
+    return defaultValue;    //no key found, send the default back
 }
 
 /**

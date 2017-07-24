@@ -15,7 +15,7 @@ public:
     Properties();
     Properties(const char *filepath);
     ~Properties();
-    const char* property(const char* key);
+    const char* property(const char* key,const char* defaultValue);
     const char* setProperty(const char* key,const char* value);
     int indexOf(const char *key) const;
     void deleteProperties();

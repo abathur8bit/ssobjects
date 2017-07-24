@@ -30,23 +30,6 @@ public:
         }
     }
 
-    //check that we get NULL if a property doesn't exist
-    void testPropertyNotExist()
-    {
-        const char* propertyfile = "test.properties";
-        try
-        {
-            Properties p(propertyfile);
-            char* value = (char*)p.property("foobar");
-            TS_ASSERT(!value);
-        }
-        catch(GeneralException& e)
-        {
-            TS_TRACE("Could not find:");
-            TS_TRACE(propertyfile);
-            TS_ASSERT(false);    //it worked
-        }
-    }
     void testPropertyExist()
     {
         const char* propertyfile = "test.properties";
@@ -54,7 +37,7 @@ public:
         try
         {
             Properties p(propertyfile);
-            const char* value = (char*)p.property("greeting");
+            const char* value = (char*)p.property("greeting","xyz");
             TS_ASSERT(value);
             if(value)   //avoid a segfault if the key was not found
             {
@@ -63,7 +46,7 @@ public:
                 TS_ASSERT(0==strcmp(value,"hello"));
             }
 
-            value = (char*)p.property("path");
+            value = (char*)p.property("path","/abc/xyz/");
             TS_ASSERT(value);
             if(value)   //avoid a segfault if the key was not found
             {
@@ -79,14 +62,20 @@ public:
             TS_ASSERT(false);    //it worked
         }
     }
-    void testPropertyExistPropertyDoesnot()
+    //request a property that doesn't exist, it should return the default value
+    void testPropertyDefault()
     {
         const char* propertyfile = "test.properties";
         try
         {
             Properties p(propertyfile);
-            const char* value = (char*)p.property("notthere");
-            TS_ASSERT(!value);
+            const char* value = (char*)p.property("xxx","xyz");
+            TS_ASSERT(value);   //make sure we got something back
+            if(value)
+            {
+                TS_ASSERT(0==strcmp(value,"xyz"));
+            }
+
         }
         catch(GeneralException& e)
         {
@@ -95,6 +84,7 @@ public:
             TS_ASSERT(false);    //it worked
         }
     }
+
     void testHomeDir()
     {
         const char *homedir = getenv("HOME");
