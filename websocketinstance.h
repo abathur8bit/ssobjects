@@ -35,7 +35,6 @@ public:
     unsigned16 payloadSize() {return m_payloadSize;}
     unsigned32 maskKey() {return m_maskKey;}
     unsigned8 mask(int i) {return m_mask[i];}
-    void setMask(unsigned8* mask);              ///< Set the 4 byte mask value.
 
 protected:
     int m_state;        ///< 0 indicates regular telnet/http, 1 indicates WebSocket
