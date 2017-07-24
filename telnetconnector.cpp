@@ -2,8 +2,8 @@
 
 #include "telnetconnector.h"
 
-TelnetConnector::TelnetConnector()
-    : m_socket(),m_bytesRead(0)
+TelnetConnector::TelnetConnector(int socketTimeout)
+    : m_socket(),m_bytesRead(0),m_socketTimeout(socketTimeout)
 {
 
 }
@@ -34,8 +34,13 @@ void TelnetConnector::close()
  */
 char* TelnetConnector::readLine(char* dest,int max)
 {
-    read(m_buffer,m_bytesRead,sizeof(m_buffer)-m_bytesRead);
-    return parseLine(dest,max);
+    char* parsed = nullptr;
+    do
+    {
+        read(m_buffer,m_bytesRead,sizeof(m_buffer)-m_bytesRead);
+        parsed = parseLine(dest,max);
+    } while(!parsed);
+    return parsed;
 }
 
 char* TelnetConnector::parseLine(char* dest,int max)
@@ -94,20 +99,19 @@ int TelnetConnector::read(char *buffer, int offset, int len)
 
    \throw SocketInstanceException If there is a socket error.
 **/
-//int TelnetConnector::println(const char* fmt,...)
-//{
-//  char buffer[TELNET_CONNECTOR_MAXBUFFER];
-//  va_list marker;
+int TelnetConnector::println(const char* fmt,...)
+{
+  char buffer[TELNET_CONNECTOR_MAXBUFFER];
+  va_list ap;
 
-//  va_start(marker,fmt);
-//  vsnprintf(buffer,sizeof buffer,fmt,marker);
-//  NULL_TERMINATE(buffer,sizeof buffer);
+  va_start(ap,fmt);
+  vsnprintf(buffer,sizeof(buffer)-2,fmt,ap);
+  va_end(ap);
+  NULL_TERMINATE(buffer,sizeof buffer);
 
-//  int iBytes;
-//  strcat(buffer,"\r\n");
-//  iBytes = sendString(buffer);
-//  return iBytes;
-//}
+  strcat(buffer,"\r\n");
+  return sendString(buffer);
+}
 
 /**
    Writes a line of text to socket.
@@ -119,14 +123,26 @@ int TelnetConnector::read(char *buffer, int offset, int len)
 
    \throw SocketInstanceException If there is a socket error.
 **/
-//int TelnetConnector::print(const char* fmt,...)
-//{
-//  char buffer[TELNET_CONNECTOR_MAXBUFFER];
-//  va_list marker;
+int TelnetConnector::print(const char* fmt,...)
+{
+  char buffer[TELNET_CONNECTOR_MAXBUFFER];
+  va_list ap;
 
-//  va_start(marker,fmt);
-//  vsnprintf(buffer,sizeof buffer,fmt,marker);
-//  NULL_TERMINATE(buffer,sizeof buffer);
+  va_start(ap,fmt);
+  vsnprintf(buffer,sizeof buffer,fmt,ap);
+  va_end(ap);
+  NULL_TERMINATE(buffer,sizeof buffer);
 
-//  return sendString(buffer);
-//}
+  return sendString(buffer);
+}
+
+int TelnetConnector::sendString(const char *buffer)
+{
+    int len = strlen(buffer);
+    int sent = 0;
+    while(sent < len)   //make sure all data is sent, since this is done as a single call
+    {
+        sent += m_socket.send(buffer,strlen(buffer),m_socketTimeout);
+    }
+    return sent;
+}

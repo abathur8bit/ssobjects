@@ -14,7 +14,7 @@ namespace ssobjects
 class TelnetConnector
 {
 public:
-    TelnetConnector();
+    TelnetConnector(int socketTimeout);
 
     void connect(const char* host,word port);   ///< Connects to the given process.
     void close();                               ///< Close the connection.
@@ -31,6 +31,7 @@ protected:
     SocketInstance m_socket;                    ///< The connection.
     char m_buffer[TELNET_CONNECTOR_MAXBUFFER];  ///< Where we store data we read until we parse it out.
     int m_bytesRead;
+    int m_socketTimeout;                        ///< How long we should wait for blocked socket operations
 };
 
 }
