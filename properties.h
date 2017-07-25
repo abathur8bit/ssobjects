@@ -1,7 +1,7 @@
 #ifndef PROPERTIES_H
 #define PROPERTIES_H
 
-#include <sys/syslimits.h>
+#include <limits.h>
 #include <stdio.h>
 
 #include "linkedlist.h"
