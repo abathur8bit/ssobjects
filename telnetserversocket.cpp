@@ -46,6 +46,8 @@ TelnetServerSocket::TelnetServerSocket(
 #endif
   assert(m_pInBuff);
   assert(m_pOutBuff);
+
+  DLOG("Created (1) TelnetServerSocket buffer size=%u inbuff=%08X outbuff=%08X ",nBufferSize,m_pInBuff,m_pOutBuff);
 }
 
 TelnetServerSocket::TelnetServerSocket(const unsigned32 nBufferSize,const int iTimeout)
@@ -69,6 +71,8 @@ TelnetServerSocket::TelnetServerSocket(const unsigned32 nBufferSize,const int iT
 
   assert(m_pInBuff);
   assert(m_pOutBuff);
+
+  DLOG("Created (2) TelnetServerSocket buffer size=%u inbuff=%08X outbuff=%08X ",nBufferSize,m_pInBuff,m_pOutBuff);
 }
 
 
@@ -77,6 +81,7 @@ TelnetServerSocket::TelnetServerSocket(const unsigned32 nBufferSize,const int iT
 **/
 TelnetServerSocket::~TelnetServerSocket()
 {
+  DLOG("TelnetServerSocket destroying inbuff=%08X outbuff=%08X ",m_pInBuff,m_pOutBuff);
   delete [] m_pInBuff;
   delete [] m_pOutBuff;
 }
@@ -86,6 +91,7 @@ int
 TelnetServerSocket::sendString(const char* pszString)
 {
 # ifdef DEBUG
+    DLOG("TelnetServerSocket::sendString string len=%u buffsize=%u maxbuffsize=%u",strlen(pszString),getOutBufferSize(),getOutBufferSizeMax());
   assert(pszString);    //passing in NULL string is not allowed
   assert(strlen(pszString) + getOutBufferSize() < getOutBufferSizeMax());
 # endif

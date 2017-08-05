@@ -16,7 +16,7 @@
 #include <sys/types.h>
 #include "msdefs.h"
 
-#define PRINTF_BUFFER       2048        //used by loggers, and routines that print to a buffer
+#define PRINTF_BUFFER       8000        //used by loggers, and routines that print to a buffer
 
 //types to keep things simple
 
