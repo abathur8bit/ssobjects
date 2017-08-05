@@ -12,6 +12,7 @@
 #ifndef DEFS_H
 #define DEFS_H
 
+#include <stdint.h>
 #include <sys/types.h>
 #include "msdefs.h"
 
@@ -52,8 +53,8 @@ typedef unsigned  char  unsigned8;    //by
 typedef signed    char  signed8;      //sb
 typedef unsigned  short unsigned16;   //wNumber
 typedef signed    short signed16;     //swNumber
-typedef unsigned  long  unsigned32;   //nNumber
-typedef signed    long  signed32;     //iNumber
+typedef uint32_t        unsigned32;   //nNumber
+typedef int32_t         signed32;     //iNumber
 
 //needs string.h
 #define ZEROMEMORY(address, numBytes)   memset((void*)(address), (int)0, (size_t)(numBytes))
@@ -103,7 +104,7 @@ typedef signed    long  signed32;     //iNumber
 
 //#ifndef OS_LINUX
 //defines needed for FreeBSD
-//typedef unsigned long uint32_t;
+//typedef unsigned long unsigned32;
 //typedef int socklen_t;
 //#endif
 

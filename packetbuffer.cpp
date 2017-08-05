@@ -151,10 +151,7 @@ PacketBuffer& PacketBuffer::operator=(const PacketBuffer& packet)
 {
 #ifdef DEBUG
   //make sure that the pointer is within range
-  unsigned32 addy1,addy2;
-  addy1=(unsigned32)packet.m_pPointer;
-  addy2=(unsigned32)packet.m_Buffer;
-  assert(addy1 >= addy2 && addy1 <= addy2+packet.m_nBufferSizeMax);
+  assert(packet.m_pPointer >= packet.m_Buffer && packet.m_pPointer <= packet.m_Buffer+packet.m_nBufferSizeMax);
 #endif
 
   if(&packet==this)   //object assigned to itself
@@ -184,10 +181,7 @@ PacketBuffer::PacketBuffer(const PacketBuffer& packet)
 {
 #ifdef DEBUG
   //make sure that the pointer is within range
-  unsigned32 addy1,addy2;
-  addy1=(unsigned32)packet.m_pPointer;
-  addy2=(unsigned32)packet.m_Buffer;
-  assert(addy1 >= addy2 && addy1 <= addy2+packet.m_nBufferSizeMax);
+  assert(packet.m_pPointer >= packet.m_Buffer && packet.m_pPointer <= packet.m_Buffer+packet.m_nBufferSizeMax);
 #endif
 
   m_Buffer = new unsigned8[packet.m_nBufferSizeMax];

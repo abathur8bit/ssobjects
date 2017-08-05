@@ -45,6 +45,7 @@
 #ifndef LOGS_H
 #define LOGS_H
 
+#include "defs.h"
 #include "msdefs.h"
 
 namespace ssobjects
@@ -77,7 +78,7 @@ class logs
   public:
     static void log(const char* fmt,...);
     static void logln(const char* fmt,...);
-    static void dump(void* pMemory,DWORD dwNumBytes);
+    static void dump(void* pMemory,unsigned32 dwNumBytes);
     static void init(const char* pszLogFileName);
     static void deinit();
     static void enable(bool bEnable=true);
