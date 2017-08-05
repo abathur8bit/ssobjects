@@ -60,7 +60,7 @@ void WebSocketInstance::addPacketBuffer(const char* pszString)
         const unsigned long long longlen = strlen(pszString);
         if(longlen > 0xFFFF)
         {
-
+            LOG("ERROR trying to send string len %lu, longer then 0xFFFF",longlen);
             throwSocketInstanceException("Longer then 0xFFFF bytes not yet supported");  //TODO need to support larger data set
         }
 
@@ -71,7 +71,7 @@ void WebSocketInstance::addPacketBuffer(const char* pszString)
         unsigned32 nSize = sizeof(header)+len;
         if(len<=125)
         {
-//            DLOG("sending with 2 byte header len is %d strlen is %d",len,strlen(pszString));
+            DLOG("sending with 2 byte header len is %d strlen is %d",len,strlen(pszString));
             header += len;
             *((unsigned16*)p) = htons(header);                      //store the header in network order
             p += sizeof(header);                                    //point past the header
@@ -79,7 +79,7 @@ void WebSocketInstance::addPacketBuffer(const char* pszString)
         }
         else
         {
-//            DLOG("sending with 4 byte header len is %d strlen is %d",len,strlen(pszString));
+            DLOG("sending with 4 byte header len is %d strlen is %d",len,strlen(pszString));
             header += 126;
             *((unsigned16*)p) = htons(header);                      //store the header in network order
             p += sizeof(header);                                    //point past the header
@@ -123,40 +123,47 @@ PacketBuffer* WebSocketInstance::extractWebSocketPacket()
     char*       phead   = m_pInBuff;
 //        char*       ptail   = phead+m_nBytesIn;
     char*       p       = phead;
-    byte        opcode  = (*p & 0x0F);  //take last 4 bits
+    byte        opcode  = (*p & 0x0F);  //take last 4 bits, we are ignoring the FIN and reserved bits
     //TODO opcode needs to be checked for text mode
     ++p;
     m_masked = (*p & 0x80) ? true:false;
     m_payloadSize = *p & 0x7F;
     ++p;
-//    LOG("Payload size is %d",m_payloadSize);
 
-    if(m_payloadSize == 126)
+    unsigned16 expectedBytesIn = 0;
+    if(m_payloadSize <= 125)
+    {
+        DLOG("Payload 2 byte header, size=%u",m_payloadSize);
+        expectedBytesIn = 2+m_payloadSize;
+    }
+    else if(m_payloadSize == 126)
     {
         if(m_nBytesIn < 4)
+        {
+            DLOG("Payload size expects 4 bytes, and we only have %d",m_nBytesIn);
             return NULL;    //can't process payload size, as we don't have enough data
+        }
 
         //payload is in next 2 bytes as a 16-bit unsigned
         unsigned16* psize = (unsigned16*)p;
         m_payloadSize = ntohs(*psize);
         p+=2;   //point past payload size
+        DLOG("Payload 4 byte header, size=%u",m_payloadSize);
+        expectedBytesIn = 4+m_payloadSize;
     }
     else if(m_payloadSize == 127)
     {
         //payload is in next 8 bytes as a 64-bit unsigned
-        LOG("Unsupported payload size");
+        LOG("Unsupported payload size of %u",m_payloadSize);
         cleanup();
         throwSocketInstanceException("Unsupported payload length");
     }
 
     //figure out how many bytes we are suppose to get with the frame info, mask, and payload size
-    unsigned16 expectedBytesIn = 0;
-    if(m_payloadSize<126)
-        expectedBytesIn = 2+m_payloadSize;
-    if(m_payloadSize == 126)
-        expectedBytesIn = 4+m_payloadSize;
     if(isMasked())
         expectedBytesIn += 4;
+
+    DLOG("expecting %u bytes, got %u",expectedBytesIn,m_nBytesIn);
 
     if(m_nBytesIn < expectedBytesIn)
         return NULL;    //we don't have the frame and full payload yet
