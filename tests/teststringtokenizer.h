@@ -1,5 +1,16 @@
+/********************************************************************
+        Copyright (c) 2017, Lee Patterson
+        https://github.com/abathur8bit/ssobjects
 
-//~/workspace/cxxtest-4.4/bin/cxxtestgen --error-printer -o runner.cpp messingabouttestsuite.h && g++ -o runner -I/Users/lee/workspace/cxxtest-4.4 -I/Users/lee/workspace/kanoogi/server/websockets/websocketserver websocketinstance.cpp runner.cpp && ./runner
+        created  :  08/12/2017
+        author   :  Lee Patterson
+        filename :  teststringtokenizer.h
+
+        purpose  :  Unit tests for making sure StringTokenizer works
+                    as expected.
+
+*********************************************************************/
+
 #include <cxxtest/TestSuite.h>
 
 #include <string>
@@ -11,7 +22,7 @@
 using namespace std;
 
 /**
- * \brief Misc unit tests for just checking syntax and quick things that are not project related.
+ * \brief Unit tests for making sure StringTokenizer works as expected.
  */
 class TestStringTokenizer : public CxxTest::TestSuite
 {
@@ -49,6 +60,4 @@ public:
         TS_ASSERT(3==tok.count(csv));
         TS_TRACE(tok.count(csv));
     }
-
-
 };
