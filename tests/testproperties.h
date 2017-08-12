@@ -11,7 +11,7 @@
 
 using namespace ssobjects;
 
-class TestPropertiesSuite : public CxxTest::TestSuite
+class TestProperties : public CxxTest::TestSuite
 {
 public:
     void testFileNotFound()

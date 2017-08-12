@@ -88,7 +88,10 @@ HEADERS += \
     websocketserver.h \
     properties.h \
     testproperties.h \
-    stringtokenizer.h
+    stringtokenizer.h \
+    tests/stringtokenizertest.h \
+    tests/testproperties.h \
+    tests/teststringtokenizer.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
@@ -98,4 +101,6 @@ DISTFILES += \
     Makefile \
     ssobjects-ddoc.xml \
     test.properties \
-    tests.sh
+    tests.sh \
+    tests/runtests.sh \
+    tests/test.properties
