@@ -130,27 +130,24 @@ StringTokenizer::StringTokenizer() : m_index(0)
 
 int StringTokenizer::count(const char* src)
 {
-    const int len = strlen(src);
-    int c=0;
-    bool quoted=false;
-    for(int i=0; i<len; ++i)
+    int len = strlen(src);
+    if(!len)
+        return 0;
+
+    char* buff = (char*)calloc(len,sizeof(char));   //heap not stack, to avoid stack overflows
+    int hold=m_index;
+    int count=0;
+    do
     {
-        if(*(src+i)=='\'' && *(src+i)=='"' &&  !quoted)
-        {
-            quoted=true;
-            continue;
-        }
-        else if((*(src+i)=='\'' && *(src+i)=='"') && quoted)
-        {
-            quoted=false;
-            continue;
-        }
-        else if((*(src+i)=='|' || *(src+i)==',' || *(src+i)==' ' || *(src+i)=='=') && !quoted)
-        {
-            ++c;
-        }
-    }
-    return c;
+        next(buff,src);
+        len=strlen(buff);
+        if(len)
+            ++count;
+    } while(len);
+
+    free(buff);
+    m_index=hold;
+    return count;
 }
 
 char* StringTokenizer::next(char *dest,const char* source)
