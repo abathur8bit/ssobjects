@@ -91,9 +91,9 @@ int
 TelnetServerSocket::sendString(const char* pszString)
 {
 # ifdef DEBUG
-    DLOG("TelnetServerSocket::sendString string len=%u buffsize=%u maxbuffsize=%u",strlen(pszString),getOutBufferSize(),getOutBufferSizeMax());
+    DLOG("TelnetServerSocket::sendString string len=%u buffsize=%u maxbuffsize=%u",strlen(pszString),getOutBufferSize(),getBufferSizeMax());
   assert(pszString);    //passing in NULL string is not allowed
-  assert(strlen(pszString) + getOutBufferSize() < getOutBufferSizeMax());
+  assert(strlen(pszString) + getOutBufferSize() < getBufferSizeMax());
 # endif
   addPacketBuffer(pszString);
   sendBuffer();

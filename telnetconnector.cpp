@@ -3,7 +3,7 @@
 #include "telnetconnector.h"
 
 TelnetConnector::TelnetConnector(int socketTimeout)
-    : m_socket(),m_bytesRead(0),m_socketTimeout(socketTimeout)
+    : m_socket(TELNET_CONNECTOR_MAXBUFFER),m_bytesRead(0),m_socketTimeout(socketTimeout)
 {
 
 }
@@ -20,6 +20,8 @@ void TelnetConnector::close()
 {
     m_socket.close();
 }
+
+
 
 /**
  * Returns nullptr if there is not enough data for a full line.

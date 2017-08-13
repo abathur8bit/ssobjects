@@ -246,6 +246,7 @@ class SocketInstance
     void close();
     void bind(LPCSOCKADDR psa);
     void listen();
+    void connect(const char* host,word port);
     void connect(LPCSOCKADDR psa);
     bool accept(SocketInstance& s, LPSOCKADDR psa);
     bool accept(SocketInstance* s, LPSOCKADDR psa);

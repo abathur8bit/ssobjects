@@ -179,6 +179,13 @@ void SocketInstance::close()
   m_hSocket = 0;
 }
 
+void SocketInstance::connect(const char* host,word port)
+{
+    SockAddr sa(host,port);
+    create();
+    connect(sa);
+}
+
 void SocketInstance::connect(LPCSOCKADDR psa)
 {
   //LBP (4/29/99): made so throws an exception instead of asserting when socket is invalid

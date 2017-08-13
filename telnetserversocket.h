@@ -78,7 +78,6 @@ class TelnetServerSocket : public SocketInstance
     PacketBuffer*   extractPacket();                                        ///< Extracts a packet from the incoming buffer.
     const Flags&    flags() const {return m_flags;}                         ///< Returns the socket flags. (Not currently used.)
     unsigned32      getOutBufferSize() const {return m_nBytesOut;}          ///< Return #bytes in outgoing buffer.
-    unsigned32      getOutBufferSizeMax() const {return m_nBufferSizeMax;}  ///< Return the actual size (how much was allocated) of the buffer.
     unsigned32      getInBufferSize() const  {return m_nBytesIn;}           ///< Return #bytes in incoming buffer.
     unsigned32      getBufferSizeMax() const {return m_nBufferSizeMax;}     ///< How big the in/out buffer is.
     SockAddr        getAddr() const {return m_socketAddr;}                  ///< Gets the socket address information of the connected socket.
