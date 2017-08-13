@@ -8,12 +8,13 @@ char* parse3(char* dest,const char* src,int* index);
 class StringTokenizer
 {
 public:
-    StringTokenizer();
-    char* next(char* dest, const char *source);
-    int count(const char *src);
+    StringTokenizer(const char* src);
+    char* next(char* dest);
+    int count();
 
 protected:
     int m_index;
+    const char* m_source;
 };
 
 #endif // STRINGTOKENIZER_H

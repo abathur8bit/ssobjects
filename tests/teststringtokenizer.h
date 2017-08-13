@@ -32,23 +32,23 @@ public:
         const char* csv = "3,MOVE 'object name',1";
         char buffer[100];
         char* ptr=buffer;
-        StringTokenizer tok;
+        StringTokenizer tok(csv);
 
-        TS_ASSERT(0==strcmp(ptr=tok.next(buffer,csv),"3"));
-        TS_ASSERT(0==strcmp(ptr=tok.next(buffer,csv),"MOVE"));
-        TS_ASSERT(0==strcmp(ptr=tok.next(buffer,csv),"object name"));
-        TS_ASSERT(0==strcmp(ptr=tok.next(buffer,csv),"1"));
+        TS_ASSERT(0==strcmp(ptr=tok.next(buffer),"3"));
+        TS_ASSERT(0==strcmp(ptr=tok.next(buffer),"MOVE"));
+        TS_ASSERT(0==strcmp(ptr=tok.next(buffer),"object name"));
+        TS_ASSERT(0==strcmp(ptr=tok.next(buffer),"1"));
     }
 
     void testTokenizerCountQuoted()
     {
         const char* csv = "HELO 'username=bleh'";
         char buffer[strlen(csv)];
-        StringTokenizer tok;
-        TS_ASSERT(2==tok.count(csv));
-        TS_TRACE(tok.count(csv));
-        TS_ASSERT(0==strcmp(tok.next(buffer,csv),"HELO"));
-        TS_ASSERT(0==strcmp(tok.next(buffer,csv),"username=bleh"));
+        StringTokenizer tok(csv);
+        TS_ASSERT(2==tok.count());
+        TS_TRACE(tok.count());
+        TS_ASSERT(0==strcmp(tok.next(buffer),"HELO"));
+        TS_ASSERT(0==strcmp(tok.next(buffer),"username=bleh"));
     }
 
     /** Make sure we get the right count while using spaces. **/
@@ -56,8 +56,8 @@ public:
     {
         const char* csv = "HELO username password";
         char buffer[strlen(csv)];
-        StringTokenizer tok;
-        TS_ASSERT(3==tok.count(csv));
-        TS_TRACE(tok.count(csv));
+        StringTokenizer tok(csv);
+        TS_ASSERT(3==tok.count());
+        TS_TRACE(tok.count());
     }
 };

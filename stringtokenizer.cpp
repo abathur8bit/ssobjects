@@ -124,13 +124,14 @@ char* parse3(char* dest,const char* src,int* index)
     return p;
 }
 
-StringTokenizer::StringTokenizer() : m_index(0)
+
+StringTokenizer::StringTokenizer(const char* src) : m_index(0),m_source(src)
 {
 }
 
-int StringTokenizer::count(const char* src)
+int StringTokenizer::count()
 {
-    int len = strlen(src);
+    int len = strlen(m_source);
     if(!len)
         return 0;
 
@@ -139,7 +140,7 @@ int StringTokenizer::count(const char* src)
     int count=0;
     do
     {
-        next(buff,src);
+        next(buff);
         len=strlen(buff);
         if(len)
             ++count;
@@ -150,10 +151,10 @@ int StringTokenizer::count(const char* src)
     return count;
 }
 
-char* StringTokenizer::next(char *dest,const char* source)
+char* StringTokenizer::next(char *dest)
 {
     char* p = dest;
-    char* src = (char*)source+m_index;
+    char* src = (char*)m_source+m_index;
     while(*src!='\0')
     {
         if(*src!='\'' && *src!='"' && *src!='|' && *src!=',' && *src!=' ' && *src!='=')

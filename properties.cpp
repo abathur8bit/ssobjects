@@ -48,12 +48,12 @@ void Properties::load(const char *filepath)
         line[strlen(line)-1]='\0';  //chop the newline at the end that fgets leaves on
 //        DUMP(line,strlen(line));
 
-        StringTokenizer tok;
-        tok.next(key,line);
+        StringTokenizer tok(line);
+        tok.next(key);
         m_keys[index] = new char[strlen(key)+1];
         strcpy(m_keys[index],key);
 
-        tok.next(value,line);
+        tok.next(value);
         m_values[index] = new char[strlen(value)+1];
         strcpy(m_values[index],value);
 
