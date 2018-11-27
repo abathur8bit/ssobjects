@@ -23,7 +23,7 @@
   
 #define SA struct sockaddr
 #define MAXLINE     4096
-#define DEF_PORT    3333
+#define DEF_PORT    3334
 
 void
 err_quit(const char* pszMsg)
