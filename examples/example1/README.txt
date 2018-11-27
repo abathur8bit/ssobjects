@@ -16,7 +16,7 @@ COMPILING:
 (Unix)
 From the command line, type (assuming you have the ssobjects compiled in "../.."
 
-     $ gcc -DOS_LINUX -I../.. -L../.. -W -Wall -o daytime1 daytimeserver.cpp -lssobjects
+     $ g++ -DOS_LINUX -I../.. -L../.. -W -Wall -o daytime1 daytimeserver.cpp -lssobjects
      $ gcc -o daytime2 daytimeserver.c
      
 RUNNING:
