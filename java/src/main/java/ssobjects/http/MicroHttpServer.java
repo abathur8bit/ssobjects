@@ -127,7 +127,7 @@ public class MicroHttpServer
 
     public static void main(String[] args) throws Exception
     {
-        MicroHttpServer server = new MicroHttpServer(9000);
+        final MicroHttpServer server = new MicroHttpServer(9000);
         System.out.println("Creating thread");
         Thread t = new Thread(new Runnable()
         {
